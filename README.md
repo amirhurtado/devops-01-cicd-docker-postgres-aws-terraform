@@ -1,4 +1,4 @@
-# devops-01-cicd-docker-aws-terraform
+# devops-01-cicd-docker-postgres-aws-terraform
 
 Bitácora del proyecto: cada paso es algo que ya hice.
 
@@ -75,6 +75,10 @@ La instancia EC2 quedó creada en AWS.
 ## P11 — Configuré el atajo SSH en `~/.ssh/config`
 
 Agregué un host para entrar a la EC2 con `ssh aws-vm` en vez de la IP completa. Al conectar, pide la passphrase de la llave privada.
+
+## P12 — Instalé nginx, Docker y Postgres en el servidor
+
+Entré a la EC2 por SSH e instalé `nginx`, `docker` y `postgres`.
 
 ---
 
