@@ -46,7 +46,25 @@ Abrí los puertos **22** (SSH), **80** (HTTP) y **3000** (app Node).
 
 Lo enlacé al Security Group y le pasé el AMI y la key desde las variables.
 
+## P8 — Configuré la subnet en `infra/main.tf`
+
+Referencié la VPC `default`, listé sus subnets filtrando por `vpc-id` y le pasé la primera al `subnet_id` del módulo EC2.
+
+## P9 — Agregué `infra/outputs.tf`
+
+Output `public_ip_ec2_instance` para imprimir la IP pública de la instancia.
+
+## P10 — Levanté la infra
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
+La instancia EC2 quedó creada en AWS.
+
 ---
 
-## Próximos pasos
+
 
