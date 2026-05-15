@@ -14,7 +14,15 @@ Bitácora del proyecto: cada paso es algo que ya hice.
 
 ## P0 — Configuré un usuario IAM en AWS
 
-Creé un usuario IAM con MFA y le adjunté la policy `AdministratorAccess`.
+Creé un usuario IAM con MFA y le adjunté la policy `AdministratorAccess`. Le generé un **Access Key** (Access Key ID + Secret Access Key) para autenticar la Mac y Terraform contra AWS.
+
+En la Mac corrí:
+
+```bash
+aws configure
+```
+
+y pegué el Access Key ID y el Secret Access Key. Con eso quedó autenticada la Mac (CLI y Terraform usan esas credenciales).
 
 ## P1 — Generé el par de llaves SSH en la Mac
 
@@ -63,6 +71,10 @@ terraform apply
 ```
 
 La instancia EC2 quedó creada en AWS.
+
+## P11 — Configuré el atajo SSH en `~/.ssh/config`
+
+Agregué un host para entrar a la EC2 con `ssh aws-vm` en vez de la IP completa. Al conectar, pide la passphrase de la llave privada.
 
 ---
 
