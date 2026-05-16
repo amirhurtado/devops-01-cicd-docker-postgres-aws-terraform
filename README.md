@@ -80,6 +80,14 @@ Agregué un host para entrar a la EC2 con `ssh aws-vm` en vez de la IP completa.
 
 Entré a la EC2 por SSH e instalé `nginx`, `docker` y `postgres`.
 
+## P13 — Agregué el bucket S3 en `infra/s3.tf`
+
+Bucket `devops-amir-s3-bucket` con `force_destroy = true`.
+
+## P14 — Le di permisos a la EC2 sobre el S3 con `infra/iam.tf`
+
+Creé un Role para EC2, una Policy que permite `GetObject`, `PutObject` y `DeleteObject` sobre el bucket, y un Instance Profile que ata el Role a la EC2. Lo enlacé en el módulo con `iam_instance_profile`.
+
 ---
 
 
