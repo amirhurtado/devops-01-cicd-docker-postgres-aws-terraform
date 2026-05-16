@@ -88,6 +88,24 @@ Bucket `devops-amir-s3-bucket` con `force_destroy = true`.
 
 Creé un Role para EC2, una Policy que permite `GetObject`, `PutObject` y `DeleteObject` sobre el bucket, y un Instance Profile que ata el Role a la EC2. Lo enlacé en el módulo con `iam_instance_profile`.
 
+## P15 — Agregué el pipeline de GitHub Actions
+
+`.github/workflows/ci-cd.yaml` con 3 etapas:
+
+1. **test** — instala dependencias y corre `npm test`.
+2. **build** — buildea la imagen de Docker y la sube a `ghcr.io`.
+3. **deploy** — entra por SSH a la EC2, hace `docker pull` y levanta el contenedor.
+
+Los stages `build` y `deploy` solo corren en `main`.
+
+## P16 — Generé una llave SSH dedicada para el deploy
+
+La llave `awskey` tiene passphrase, así que GitHub Actions no la podía usar en el job de deploy. Generé una nueva llave `ed25519` **sin passphrase**, agregué la pública al `~/.ssh/authorized_keys` de la EC2 y puse la privada como secret `AWS_SSH_KEY` en el repo. También agregué `AWS_HOST` con la IP pública de la EC2.
+
+## P17 — Desplegué el car-service en la EC2
+
+El pipeline corrió end-to-end y dejó el contenedor `car-api` corriendo en el servidor en el puerto 3000.
+
 ---
 
 
