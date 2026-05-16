@@ -46,7 +46,7 @@ jobs:
               with:
                 context: ./car-service
                 push: true
-                tags: ghcr.io/${{ github.repository }}/car-service:latest
+                tags: ghcr.io/${{ github.repository }}/car-api:latest
 
     deploy:
         needs: build
@@ -62,10 +62,11 @@ jobs:
                 username: ubuntu
                 key: ${{ secrets.AWS_SSH_KEY}}
                 script: |
-                    docker pull ghcr.io/${{ github.repository }}/tasks-api:latest
-                    docker stop tasks-api || true
-                    docker rm tasks-api || true
-                    docker run -d --name tasks-api -p 3000:3000 ghcr.io/${{ github.repository }}/tasks-api:latest
+                    echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+                    docker pull ghcr.io/${{ github.repository }}/car-api:latest
+                    docker stop car-api || true
+                    docker rm car-api || true
+                    docker run -d --name car-api -p 3000:3000 ghcr.io/${{ github.repository }}/car-api:latest
                 
 
 
