@@ -110,6 +110,42 @@ El pipeline corrió end-to-end y dejó el contenedor `car-api` corriendo en el s
 
 Creé `/home/ubuntu/.env` con la **BASE_URL** de la base de datos y el **PORT** en `3000`. Hice pruebas llamando a la base de datos desde el contenedor y funcionó correctamente.
 
+## P19 — Verifiqué el IAM Role de la EC2
+
+Desde la **Mac** revisé que la policy estuviera bien configurada con:
+
+```bash
+aws iam list-roles
+aws iam get-role --role-name devops-ec2-role
+aws iam list-role-policies --role-name devops-ec2-role
+aws iam get-role-policy --role-name devops-ec2-role --policy-name <nombre-policy>
+```
+
+Luego, dentro de la **EC2** corrí:
+
+```bash
+aws sts get-caller-identity
+```
+
+Y devolvió el ARN con `assumed-role/devops-ec2-role/...`, confirmando que la instancia está usando el role correcto sin necesidad de `aws configure`.
+
+## P20 — Probé el acceso al bucket S3 desde la EC2
+
+Subí un archivo de prueba al bucket:
+
+```bash
+aws s3 cp prueba.txt s3://devops-amir-s3-bucket
+# upload: ./prueba.txt to s3://devops-amir-s3-bucket/prueba.txt
+```
+
+Y luego lo descargué de vuelta:
+
+```bash
+aws s3 cp s3://devops-amir-s3-bucket/prueba.txt .
+```
+
+Confirmé que el IAM Role le da a la EC2 los permisos correctos de `PutObject` y `GetObject` sobre el bucket.
+
 ---
 
 
