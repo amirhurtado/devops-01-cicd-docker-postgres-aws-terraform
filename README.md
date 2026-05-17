@@ -106,6 +106,10 @@ La llave `awskey` tiene passphrase, así que GitHub Actions no la podía usar en
 
 El pipeline corrió end-to-end y dejó el contenedor `car-api` corriendo en el servidor en el puerto 3000.
 
+## P18 — Creé el archivo `.env` en la EC2
+
+Creé `/home/ubuntu/.env` con la **BASE_URL** de la base de datos y el **PORT** en `3000`. Hice pruebas llamando a la base de datos desde el contenedor y funcionó correctamente.
+
 ---
 
 
